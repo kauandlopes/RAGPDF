@@ -4,9 +4,9 @@ from langchain_chroma import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 import os
 
-# Pastas
-PASTA_BASE = "base"  # Onde estão os PDFs
-CAMINHO_DB = "db"    # Onde será salvo o banco vetorial
+# pasta onde esta o banco de dados e para onde os arquivos vetorizados vão
+PASTA_BASE = "base"  
+CAMINHO_DB = "db"    
 
 def carregar_documentos():
     loader = PyPDFDirectoryLoader(PASTA_BASE, glob="*.pdf")
@@ -21,12 +21,13 @@ def dividir_chunks(documentos):
         length_function=len,
         add_start_index=True
     )
+
     chunks = splitter.split_documents(documentos)
     print(f"Chunks criados: {len(chunks)}")
     return chunks
 
 def vetorizar_chunks(chunks):
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")  # Local, 384 dimensões
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")  
     
     db = Chroma.from_documents(
         chunks,
@@ -41,10 +42,11 @@ def criar_db():
     vetorizar_chunks(chunks)
 
 if __name__ == "__main__":
-    # Se já existe um DB antigo, apagar para evitar erro de dimensão
+    # caso rodar esse arquivo, substituir o antigo banco de dados
     if os.path.exists(CAMINHO_DB):
         import shutil
         shutil.rmtree(CAMINHO_DB)
         print("DB antigo apagado.")
     
+
     criar_db()

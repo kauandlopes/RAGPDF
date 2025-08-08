@@ -11,8 +11,8 @@ class LocalEmbeddings:
     def embed_query(self, text):
         return embedding_model.encode([text])[0].tolist()
 
-def responder():
-    pergunta = input("Escreva sua pergunta: ")
+def responder(pergunta):
+    
 
     db = Chroma(
         persist_directory="db",
@@ -39,8 +39,7 @@ Pergunta: {pergunta}
         messages=[{"role": "user", "content": prompt}]
     )
 
-    print("\n--- Resposta ---")
-    print(resposta.choices[0].message.content)
+    return resposta.choices[0].message.content
 
 if __name__ == "__main__":
     responder()
