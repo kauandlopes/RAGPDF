@@ -25,15 +25,3 @@ O **Assistente RAG** é uma aplicação web desenvolvida com Flask que funciona 
 - **Lógica de Resposta:** Implementada no módulo `main.py` (função `responder`)  
 - **Formatação:** Regex para conversão simples de marcação Markdown para HTML
 
----
-
-## Estrutura do Projeto
-
-├── app.py # Aplicação Flask
-├── main.py # Lógica de processamento e respostas
-├── templates/
-│ └── index.html # Template HTML com Jinja2
-├── static/
-│ └── public/
-│ └── header.png # Imagem do cabeçalho
-└── README.md # Documentação do projeto
